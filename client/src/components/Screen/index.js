@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import constants from '../../constants';
 import Camera from '../Camera';
+import TextBox from './TextBox/TextBox';
 
 const Container = styled.div`
   width: 500px;
@@ -37,6 +38,9 @@ function Screen() {
 
   return (
     <Container>
+      <TextBox 
+        recording={recording}
+      />
       <Camera />
       <PlayButton onClick={() => setRecording(!recording)}>
         {recording ? '◼' : '▶'}
