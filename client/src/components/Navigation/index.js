@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 
-import logo from './retrotubing_logo.png';
+import logo from './retro.png';
 
 function Navigation() {
   return (
@@ -9,7 +9,7 @@ function Navigation() {
      <img 
       src={logo} 
       alt="retrotubing logo"
-      style={{ height: 50, width: 200, 
+      style={{ height: 50, width: 350, 
         margin: 30  }}
       
     />

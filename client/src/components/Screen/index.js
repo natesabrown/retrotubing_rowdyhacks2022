@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useReactMediaRecorder } from 'react-media-recorder';
 
 import constants from '../../constants';
 import Camera from '../Camera';
@@ -36,11 +37,28 @@ const PlayButton = styled.div`
 function Screen() {
   const [recording, setRecording] = useState(false);
 
+  // const {
+  //   status, startRecording, stopRecording, mediaBlobUrl
+  // } = useReactMediaRecorder({ screen: true });
+
+  // function onButtonClick(buttonState) {
+  //   if (buttonState == true) {
+  //     // handle saving, etc
+  //     stopRecording();
+  //     console.log(mediaBlobUrl);
+  //   } else {
+  //     // start stuff
+  //     startRecording();
+  //   }
+  //   // reverse button state
+  //   setRecording(!recording);
+  // }
+
   return (
     <Container>
-      <TextBox 
+      {/* <TextBox 
         recording={recording}
-      />
+      /> */}
       <Camera />
       <PlayButton onClick={() => setRecording(!recording)}>
         {recording ? '◼' : '▶'}

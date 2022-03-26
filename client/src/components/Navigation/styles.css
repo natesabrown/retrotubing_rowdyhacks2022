@@ -1,13 +1,17 @@
 .navigation {
   width: 100%;
-  height: 100px;
-  background-color:rgb(41,9,91);
+  /* height: 100px; */
+  /* background-color:rgb(41,9,91); */
+  background-color: #854EDB;
+
+  margin-bottom: 40px;
 }
 
 #title {
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
+  margin-top: 0;
   
 }
 
