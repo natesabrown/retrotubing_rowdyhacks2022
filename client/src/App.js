@@ -23,14 +23,21 @@ const Container = styled.div`
   justify-content: center;
 `
 
+const SubContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 function App() {
   return (
     <>
     <GlobalStyle />
     <Navigation />
     <Container>
-      <Screen />
-      <DownloadBar />
+      <SubContainer>
+        <Screen />
+        <DownloadBar />
+      </SubContainer>
     </Container>
     
     </>

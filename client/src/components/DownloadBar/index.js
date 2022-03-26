@@ -1,5 +1,4 @@
 import React from 'react';
-import './styles.css';
 
 function DownloadBar() {
 
@@ -9,7 +8,7 @@ function DownloadBar() {
            <div style={{ 
                borderTop: "5px solid", 
                borderColor: "#854EDB",
-               width: 500
+               width: 510
                 }}></div>
             <div>
 
