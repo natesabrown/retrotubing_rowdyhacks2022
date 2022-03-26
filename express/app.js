@@ -18,7 +18,6 @@ const params = {
 }
 
 app.get('/', (req, res) => {
-
   // getting the token
   fetch(url, params)
     .then(response => response.json())
@@ -29,7 +28,7 @@ app.get('/', (req, res) => {
     });
 });
 
-app.set('port', 8000);
+app.set('port', 9000);
 const server = app.listen(app.get('port'), () => {
   console.log(`Server is running on port ${server.address().port}`);
 });
