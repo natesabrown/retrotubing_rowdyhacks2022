@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 import Navigation from './components/Navigation';
 import Screen from './components/Screen';
+import DownloadBar from './components/DownloadBar';
 
 import constants from './constants';
 
@@ -29,7 +30,9 @@ function App() {
     <Navigation />
     <Container>
       <Screen />
+      <DownloadBar />
     </Container>
+    
     </>
   );
 }
