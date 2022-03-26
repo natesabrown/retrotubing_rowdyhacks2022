@@ -8,23 +8,29 @@ app.use(express.json());
 app.use(cors());
 
 const url = 'https://api.assemblyai.com/v2/realtime/token';
+
+const data = {
+  "expires_in": 120
+};
+
 const params = {
-  method: 'POST',
   headers: {
-    'Content-Type': 'application/json',
-    'authorization': process.env.ASSEMBLYAI_API_KEY
+    "authorization": process.env.ASSEMBLYAI_API_KEY,
+    "content-type": "application/json",
   },
-  body: JSON.stringify({expires_in: 1800}) // seconds
-}
+  body: JSON.stringify(data),
+  method: "POST"
+};
 
 app.get('/', (req, res) => {
-  // getting the token
   fetch(url, params)
     .then(response => response.json())
-    .then(response => res.json(response.token))
-    .catch(err => {
-      const {response: {status, data}} = err;
-      res.status(status).json(data);
+    .then(data => {
+      res.json(data['token']);
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
     });
 });
 
