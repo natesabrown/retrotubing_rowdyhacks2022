@@ -7,86 +7,88 @@ export default function TextBox({recording}){
     const [text, setText] = useState('');
 
     useEffect(() => {
-        const data = fetch('/').then(res => res.json());
+        if(recording)
+            fetch('http://localhost:9000')
+                .then(res => res.json())
+                .then(token => {
+                    // set up web socket with assembly ai for real time transcribing
+                    const socket = new WebSocket(`wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000&token=${token}`);
 
-        if(data.error){
-            alert(data.error);
-            console.error(data.error);
-            return;
-        }
+                    // incoming messages from socket
+                    const texts = {};
+                    socket.onmessage = message => {
+                        console.log('message received');
+                        let msg = '';
+                        const res = JSON.parse(message.data);
+                        texts[res.audio_start] = res.text;
+                        const keys = Object.keys(texts);
+                        keys.sort((a, b) => a - b);
+                        for (const key of keys) {
+                            console.log(key);
+                            if (texts[key]) {
+                            msg += ` ${texts[key]}`;
+                            }
+                        }
+                        setText(msg);
+                    }
 
-        const {token} = data;
+                    socket.onerror = e => {
+                        console.error(e);
+                        socket.close();
+                    }
 
-        // set up web socket with assembly ai for real time transcribing
-        const socket = new WebSocket(`wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000&token=${token}`);
+                    socket.onclose = e => {
+                        console.log(e);
+                        setSocket(null);
+                    }
 
-        // incoming messages from socket
-        const texts = {};
-        socket.onmessage = message => {
-            let msg = '';
-            const res = JSON.parse(message.data);
-            texts[res.audio_start] = res.text;
-            const keys = Object.keys(texts);
-            keys.sort((a, b) => a - b);
-            for (const key of keys) {
-                console.log(key);
-                if (texts[key]) {
-                msg += ` ${texts[key]}`;
+                    socket.onopen = () => {
+                        // once socket is open, begin recording
+                        navigator.mediaDevices.getUserMedia({ audio: true })
+                          .then((stream) => {
+                                const recorder = new RecordRTC(stream, {
+                                    type: 'audio',
+                                    mimeType: 'audio/webm;codecs=pcm', // endpoint requires 16bit PCM audio
+                                    timeSlice: 250, // set 250 ms intervals of data that sends to AAI
+                                    desiredSampRate: 16000,
+                                    numberOfAudioChannels: 1, // real-time requires only one channel
+                                    bufferSize: 4096,
+                                    audioBitsPerSecond: 128000,
+                                    recorderType: RecordRTC.StereoAudioRecorder,
+                                    ondataavailable: (blob) => {
+                                        const reader = new FileReader();
+                                        reader.onload = () => {
+                                        const base64data = reader.result;
+
+                                        // audio data must be sent as a base64 encded string
+                                        if (socket) {
+                                            socket.send(JSON.stringify({ audio_data: base64data.split('base64,')[1] }));
+                                        }
+                                        };
+                                        reader.readAsDataURL(blob);
+                                    },
+                                });
+                
+                                recorder.startRecording();
+
+                                setRecorder(recorder);
+                            })
+                            .catch((err) => console.error(err));
+                    };
+
+                    setSocket(socket);
+                });
+            else{
+                if(socket){
+                    socket.send(JSON.stringify({terminate_sessin: true}));
+                    socket.close();
+                    setSocket(null);
+                }
+                if(recorder){
+                    recorder.pauseRecording();
+                    setRecorder(null);
                 }
             }
-            setText(msg);
-        }
-
-        socket.onerror = e => {
-            console.error(e);
-            socket.close();
-        }
-
-        socket.onclose = e => {
-            console.log(e);
-            setSocket(null);
-        }
-
-        setSocket(socket);
-
-
-        return () => socket.close();
-    }, []);
-
-    useEffect(() => {
-        if(recording){
-            navigator.mediaDevices.getUserMedia({ audio: true })
-            .then((stream) => {
-            const recorder = new RecordRTC(stream, {
-                type: 'audio',
-                mimeType: 'audio/webm;codecs=pcm', // endpoint requires 16bit PCM audio
-                timeSlice: 250, // set 250 ms intervals of data that sends to AAI
-                desiredSampRate: 16000,
-                numberOfAudioChannels: 1, // real-time requires only one channel
-                bufferSize: 4096,
-                audioBitsPerSecond: 128000,
-                ondataavailable: (blob) => {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    const base64data = reader.result;
-
-                    // audio data must be sent as a base64 encoded string
-                    if (socket) {
-                    socket.send(JSON.stringify({ audio_data: base64data.split('base64,')[1] }));
-                    }
-                };
-                reader.readAsDataURL(blob);
-                },
-            });
-
-            recorder.startRecording();
-            setRecorder(recorder);
-            })
-            .catch((err) => console.error(err));
-        } else{
-            if(recorder)
-                recorder.stopRecording();
-        }
     }, [recording]);
 
     return (
