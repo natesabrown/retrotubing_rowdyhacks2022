@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 import constants from '../../constants';
 import down_arrow from "./down_arrow.png";
+import FilterSelect from '../Screen/FilterSelect';
 
 const Holder = styled.div`
   width: 515px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-top: 20px;
 `;
 
@@ -27,7 +28,7 @@ const DownloadButton = styled.div`
   
 `;
 
-function DownloadBar() {
+function DownloadBar({ filterName, setFilterName }) {
   return (
     <>
         <div
@@ -39,6 +40,10 @@ function DownloadBar() {
           }}
         ></div>
       <Holder>
+        <FilterSelect 
+          filterName={filterName}
+          setFilterName={setFilterName}
+        />
         <DownloadButton>
           <img src={down_arrow} />
         </DownloadButton>

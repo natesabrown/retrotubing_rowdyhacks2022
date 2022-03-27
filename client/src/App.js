@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import Navigation from './components/Navigation';
 import Screen from './components/Screen';
 import DownloadBar from './components/DownloadBar';
+import FilterSelect from './components/Screen/FilterSelect';
 
 import constants from './constants';
 
@@ -12,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     background-color: ${constants.background};
+    font-family: 'VT323', monospace;
   }
 `
 
@@ -29,6 +31,8 @@ const SubContainer = styled.div`
 `
 
 function App() {
+  const [filterName, setFilterName] = useState("neue");
+
   return (
     <>
     <GlobalStyle />
@@ -36,7 +40,7 @@ function App() {
     <Container>
       <SubContainer>
         <Screen />
-        <DownloadBar />
+        <DownloadBar filterName={filterName} setFilterName={setFilterName} />
       </SubContainer>
     </Container>
     
