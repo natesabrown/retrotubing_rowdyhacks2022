@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { useReactMediaRecorder } from 'react-media-recorder';
+
+import play from './play.png';
+import stop from './stop.png';
 
 import constants from '../../constants';
 import Camera from '../Camera';
@@ -10,7 +13,7 @@ const Container = styled.div`
   width: 500px;
   height: 500px;
 
-  border: 5px dashed ${constants.darkbackground};
+  border: 7px dashed ${constants.darkbackground};
 
   display: flex;
   flex-direction: column;
@@ -18,19 +21,32 @@ const Container = styled.div`
   justify-content: center;
 ` 
 
+const bubble = keyframes`
+  0% {
+    transform: translateY(0px);
+  } 
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`
+
 const PlayButton = styled.div`
-  background-color: orange;
-  width: 30px;
-  height: 30px;
-  border: 3px solid red;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
   margin-top: 20px;
+
+  img {
+    width: 70px;
+    image-rendering: pixelated;
+  }
 
   &:hover {
     cursor: pointer;
+
+    ${props => props.notplaying && css`img {
+      animation: ${bubble} 0.5s infinite;
+    }`}
   }
 `
 
@@ -56,12 +72,12 @@ function Screen() {
 
   return (
     <Container>
-      {/* <TextBox 
+      <TextBox 
         recording={recording}
-      /> */}
+      />
       <Camera />
-      <PlayButton onClick={() => setRecording(!recording)}>
-        {recording ? '◼' : '▶'}
+      <PlayButton onClick={() => setRecording(!recording)} notplaying={!recording}>
+        <img src={recording ? stop : play} />
       </PlayButton>
     </Container>
   )
