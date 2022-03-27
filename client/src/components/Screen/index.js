@@ -10,7 +10,7 @@ import Camera from '../Camera';
 const Container = styled.div`
   width: 500px;
   height: 500px;
-
+  padding: 10px;
   border: 7px dashed ${constants.darkbackground};
 
   display: flex;
@@ -32,8 +32,8 @@ const bubble = keyframes`
 `
 
 const PlayButton = styled.div`
-  margin-top: 20px;
   position: absolute;
+  bottom: 125px;
   img {
     width: 70px;
     image-rendering: pixelated;
