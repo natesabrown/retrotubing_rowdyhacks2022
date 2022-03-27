@@ -15,7 +15,7 @@ const videoConstraints = {
   height: VID_QUALITY,
 };
 
-function Camera() {
+function Camera({ filterName }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -42,7 +42,7 @@ function Camera() {
       
 
       var imageData = ctx.getImageData(0, 0, 300, 300);
-      var newImgData = pixels.filterImgData(imageData, "neue");
+      var newImgData = pixels.filterImgData(imageData, filterName);
       ctx.putImageData(newImgData, 0, 0);
     }
   }
@@ -52,7 +52,7 @@ function Camera() {
       drawImage();
     }, 30);
     return () => clearInterval(timer);
-  }, [webcamRef, canvasRef])
+  }, [webcamRef, canvasRef, filterName])
 
   return (
     <WebcamHolder>
