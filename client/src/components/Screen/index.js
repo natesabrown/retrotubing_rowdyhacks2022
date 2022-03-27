@@ -50,7 +50,7 @@ const PlayButton = styled.div`
   }
 `
 
-function Screen() {
+function Screen({ filterName }) {
   const [recording, setRecording] = useState(false);
 
   // const {
@@ -74,8 +74,13 @@ function Screen() {
     <Container>
       {/* <TextBox 
         recording={recording}
+<<<<<<< HEAD
       /> */}
       <Camera recording={recording}/>
+=======
+      />
+      <Camera filterName={filterName} />
+>>>>>>> b086169784dc6456e3dd717e3b122b4dcbe1251e
       <PlayButton onClick={() => setRecording(!recording)} notplaying={!recording}>
         <img src={recording ? stop : play} />
       </PlayButton>

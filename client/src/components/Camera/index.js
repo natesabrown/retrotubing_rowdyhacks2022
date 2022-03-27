@@ -23,7 +23,7 @@ const videoConstraints = {
   height: VID_QUALITY,
 };
 
-function Camera({recording}) {
+function Camera({ recording, filterName }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const text = useText(recording);
@@ -71,7 +71,7 @@ function Camera({recording}) {
       drawImage();
     }, 30);
     return () => clearInterval(timer);
-  }, [webcamRef, canvasRef, text]);
+  }, [webcamRef, canvasRef, filterName, text])
 
   return (
     <WebcamHolder>

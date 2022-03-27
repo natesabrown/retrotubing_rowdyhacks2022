@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import Navigation from './components/Navigation';
 import Screen from './components/Screen';
 import DownloadBar from './components/DownloadBar';
+import Information from './components/Information';
 import FilterSelect from './components/Screen/FilterSelect';
 
 import constants from './constants';
@@ -39,8 +40,9 @@ function App() {
     <Navigation />
     <Container>
       <SubContainer>
-        <Screen />
+        <Screen filterName={filterName} />
         <DownloadBar filterName={filterName} setFilterName={setFilterName} />
+        <Information />
       </SubContainer>
     </Container>
     
