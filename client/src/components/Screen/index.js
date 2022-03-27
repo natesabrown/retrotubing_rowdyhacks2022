@@ -12,6 +12,7 @@ const Container = styled.div`
   height: 500px;
   padding: 10px;
   border: 7px dashed ${constants.darkbackground};
+  background-color: ${constants.darkbackground}50;
 
   position: relative;
 ` 

@@ -62,7 +62,7 @@ const Comet = styled.img`
 `
 
 const Holder = styled.div`
-  width: 515px;
+  width: 535px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -77,13 +77,17 @@ const DownloadButton = styled.div`
   padding: 6px;
   background-color: ${constants.darkbackground};
   border: 5px solid black;
-  &:hover {
-    background-color: #472A76;
-    cursor: pointer;
-  }
   transform: scale(0.9);
   position: relative;
-  
+  ${props => !props.filePresent && `
+    opacity: 0.5
+  `}
+  ${props => props.filePresent && `
+    &:hover {
+      background-color: #472A76;
+      cursor: pointer;
+    }
+  `}
 `;
 
 const HelpText = styled.div`
@@ -92,7 +96,7 @@ const HelpText = styled.div`
   margin-top: 15px;
 `
 
-function DownloadBar({ download, filterName, setFilterName }) {
+function DownloadBar({ download, filterName, setFilterName, file }) {
   const [up, setUp] = useState(false);
 
 
@@ -109,7 +113,7 @@ function DownloadBar({ download, filterName, setFilterName }) {
           style={{
             borderTop: "6px solid",
             borderColor: "#854EDB",
-            width: 515,
+            width: 535,
             marginTop: 30,
           }}
         ></div>
@@ -122,7 +126,7 @@ function DownloadBar({ download, filterName, setFilterName }) {
           filterName={filterName}
           setFilterName={setFilterName}
         />
-        <DownloadButton onClick={() => download()}>
+        <DownloadButton onClick={() => download()} filePresent={file ? true : false}>
           <img src={down_arrow} />
           <Earth src={earth} up={up} />
         </DownloadButton>

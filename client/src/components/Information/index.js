@@ -11,7 +11,6 @@ function Information() {
                 
                 <h1>Easy to Setup</h1>
                 <div style={{
-                    width: '100%',
                     borderTop: "2px solid black"
                 }}>
 
@@ -25,7 +24,6 @@ function Information() {
             <div className="box b">
                 <h1>Pixelize Yourself</h1>
                 <div style={{
-                    width: '100%',
                     borderTop: "2px solid black"
                 }}></div>
                 <p> Our service will pixelize your both video and chat
@@ -34,7 +32,6 @@ function Information() {
             <div className="box c">
                 <h1>Keep Anonymous</h1>
                 <div style={{
-                    width: '100%',
                     borderTop: "2px solid black"
                 }}></div>
                 <p>Share your message through a retro character and chat, 

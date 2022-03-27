@@ -53,7 +53,7 @@ function App() {
     <Container>
       <SubContainer>
         <Screen filterName={filterName} setFile={(file) => setFile(file)}/>
-        <DownloadBar filterName={filterName} setFilterName={setFilterName} download={() => download()}/>
+        <DownloadBar filterName={filterName} setFilterName={setFilterName} download={() => download()} file={file} />
         <Information />
       </SubContainer>
     </Container>
