@@ -72,11 +72,11 @@ function Camera({ setFile, filterName }) {
     if (video && canvas && pixels) {
       var ctx = canvas.getContext("2d");
 
-      ctx.drawImage(speechBubble, 10, 5, 280, 45);
+      // ctx.drawImage(speechBubble, 10, 5, 280, 45);
 
-      ctx.font = "12px VT323 monospace";
-      ctx.fillText(text[0], 30, 20, 230);
-      ctx.fillText(text[1], 30, 32.5, 230);
+      // ctx.font = "12px VT323 monospace";
+      // ctx.fillText(text[0], 30, 20, 230);
+      // ctx.fillText(text[1], 30, 32.5, 230);
 
       const x = 80, y = 55, w = 140, h = 70;
 
@@ -107,7 +107,17 @@ function Camera({ setFile, filterName }) {
       drawImage();
     }, 30);
     return () => clearInterval(timer);
-  }, [webcamRef, canvasRef, filterName, text])
+  }, [webcamRef, canvasRef, filterName])
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    var ctx = canvas.getContext("2d");
+
+    ctx.drawImage(speechBubble, 10, 5, 280, 45);
+    ctx.font = "12px VT323 monospace";
+    ctx.fillText(text[0], 30, 20, 230);
+    ctx.fillText(text[1], 30, 32.5, 230);
+  }, [text]);
 
   const startRecording = useCallback(() => {
     recorder.createStream(canvasRef.current);
