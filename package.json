@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "canvas-record": "^3.1.0",
-    "react-canvas-recorder": "^1.1.1"
-  }
-}
