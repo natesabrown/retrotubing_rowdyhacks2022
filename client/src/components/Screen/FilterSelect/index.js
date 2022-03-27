@@ -6,7 +6,7 @@ import constants from '../../../constants';
 
 const SelectElement = styled.div`
   font-size: 40px;
-  width: 150px;
+  width: 165px;
   height: 60px;
   background-color: white;
   border: 6px solid ${constants.darkbackground};
@@ -47,7 +47,7 @@ const Toggle = styled.div`
 
 const options = [
   {
-    name: 'Neue',
+    name: 'Gameboy',
     id: 'neue'
   },
   {
@@ -55,7 +55,7 @@ const options = [
     id: "yellow_casino"
   },
   {
-    name: "Turtle",
+    name: "Tetris",
     id: "extra_offset_green"
   },
   {
