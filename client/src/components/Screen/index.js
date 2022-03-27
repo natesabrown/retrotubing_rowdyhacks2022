@@ -35,7 +35,7 @@ const bubble = keyframes`
 
 const PlayButton = styled.div`
   margin-top: 20px;
-
+  position: absolute;
   img {
     width: 70px;
     image-rendering: pixelated;
@@ -72,10 +72,10 @@ function Screen() {
 
   return (
     <Container>
-      <TextBox 
+      {/* <TextBox 
         recording={recording}
-      />
-      <Camera />
+      /> */}
+      <Camera recording={recording}/>
       <PlayButton onClick={() => setRecording(!recording)} notplaying={!recording}>
         <img src={recording ? stop : play} />
       </PlayButton>
