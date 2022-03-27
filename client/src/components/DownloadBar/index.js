@@ -122,13 +122,13 @@ function DownloadBar({ download, filterName, setFilterName, file }) {
         <Moon src={moon} up={up} />
         <Rocket src={comet} up={up} />
         <Comet src={rocket} up={up} />
+        <Earth src={earth} up={up} />
         <FilterSelect 
           filterName={filterName}
           setFilterName={setFilterName}
         />
         <DownloadButton onClick={() => download()} filePresent={file ? true : false}>
           <img src={down_arrow} />
-          <Earth src={earth} up={up} />
         </DownloadButton>
       </Holder>
     </>
