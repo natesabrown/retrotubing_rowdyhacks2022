@@ -3,11 +3,12 @@ import Webcam from "react-webcam";
 import styled from "styled-components";
 
 const WebcamHolder = styled.div`
-  video {
+  canvas {
+    border: 7px solid black;
   }
 `;
 
-const VID_QUALITY = 35;
+const VID_QUALITY = 20;
 
 const videoConstraints = {
   width: VID_QUALITY,
