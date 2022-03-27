@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useReactMediaRecorder } from 'react-media-recorder';
 
@@ -56,9 +56,9 @@ function Screen() {
 
   return (
     <Container>
-      {/* <TextBox 
+      <TextBox 
         recording={recording}
-      /> */}
+      />
       <Camera />
       <PlayButton onClick={() => setRecording(!recording)}>
         {recording ? '◼' : '▶'}
