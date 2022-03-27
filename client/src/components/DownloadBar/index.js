@@ -92,7 +92,7 @@ const HelpText = styled.div`
   margin-top: 15px;
 `
 
-function DownloadBar({ filterName, setFilterName }) {
+function DownloadBar({ download, filterName, setFilterName }) {
   const [up, setUp] = useState(false);
 
 
@@ -122,7 +122,7 @@ function DownloadBar({ filterName, setFilterName }) {
           filterName={filterName}
           setFilterName={setFilterName}
         />
-        <DownloadButton>
+        <DownloadButton onClick={() => download()}>
           <img src={down_arrow} />
           <Earth src={earth} up={up} />
         </DownloadButton>

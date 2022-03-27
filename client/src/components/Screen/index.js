@@ -13,51 +13,14 @@ const Container = styled.div`
   padding: 10px;
   border: 7px dashed ${constants.darkbackground};
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: relative;
 ` 
 
-const bubble = keyframes`
-  0% {
-    transform: translateY(0px);
-  } 
-  50% {
-    transform: translateY(-8px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-`
-
-const PlayButton = styled.div`
-  position: absolute;
-  bottom: 5px;
-  img {
-    width: 70px;
-    image-rendering: pixelated;
-  }
-
-  &:hover {
-    cursor: pointer;
-
-    ${props => props.notplaying && css`img {
-      animation: ${bubble} 0.5s infinite;
-    }`}
-  }
-`
-
-function Screen({ filterName }) {
-  const [recording, setRecording] = useState(false);
+function Screen({ setFile, filterName }) {
 
   return (
     <Container>
-      <Camera recording={recording} filterName={filterName} />
-      <PlayButton onClick={() => setRecording(!recording)} notplaying={!recording}>
-        <img src={recording ? stop : play} />
-      </PlayButton>
+      <Camera filterName={filterName} setFile={(file) => setFile(file)}/>
     </Container>
   )
 }

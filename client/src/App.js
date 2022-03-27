@@ -33,6 +33,18 @@ const SubContainer = styled.div`
 
 function App() {
   const [filterName, setFilterName] = useState("neue");
+  const [file, setFile] = useState();
+
+  const download = () => {
+    if(file){
+      console.log(file);
+      const link = document.createElement('a');
+      link.href = file;
+      link.setAttribute('download', 'recording');
+      link.setAttribute('target', '_blank');
+      link.click();
+    }
+  }
 
   return (
     <>
@@ -40,8 +52,8 @@ function App() {
     <Navigation />
     <Container>
       <SubContainer>
-        <Screen filterName={filterName} />
-        <DownloadBar filterName={filterName} setFilterName={setFilterName} />
+        <Screen filterName={filterName} setFile={(file) => setFile(file)}/>
+        <DownloadBar filterName={filterName} setFilterName={setFilterName} download={() => download()}/>
         <Information />
       </SubContainer>
     </Container>

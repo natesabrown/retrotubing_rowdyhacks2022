@@ -7,7 +7,7 @@ function Information() {
     
         <div className="wrapper">
             
-            <div class="box a">
+            <div className="box a">
                 
                 <h1>Easy to Setup</h1>
                 <div style={{
@@ -22,7 +22,7 @@ function Information() {
 
                 </p>
             </div>
-            <div class="box b">
+            <div className="box b">
                 <h1>Pixelize Yourself</h1>
                 <div style={{
                     width: '100%',
@@ -31,7 +31,7 @@ function Information() {
                 <p> Our service will pixelize your both video and chat
                      LIVE, allowing you to monitor the video as you record! </p>
                 </div>
-            <div class="box c">
+            <div className="box c">
                 <h1>Keep Anonymous</h1>
                 <div style={{
                     width: '100%',

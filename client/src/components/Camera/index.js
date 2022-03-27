@@ -1,8 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import Webcam from "react-webcam";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import useText from "../Screen/TextBox/useText";
 import speechBubblePath from './speech_bubble.png';
+import recorder from 'react-canvas-recorder';
+import play from '../Screen/play.png';
+import stop from '../Screen/stop.png';
 
 const speechBubble = new Image();
 speechBubble.src = speechBubblePath;
@@ -16,6 +19,37 @@ const WebcamHolder = styled.div`
   }
 `;
 
+const bubble = keyframes`
+  0% {
+    transform: translateY(0px);
+  } 
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`
+
+const PlayButton = styled.div`
+  position: absolute;
+  bottom: 5px;
+  left: 230px;
+
+  img {
+    width: 70px;
+    image-rendering: pixelated;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    ${props => !props.recording && css`img {
+      animation: ${bubble} 0.5s infinite;
+    }`}
+  }
+`
+
 const VID_QUALITY = 20;
 
 const videoConstraints = {
@@ -23,7 +57,9 @@ const videoConstraints = {
   height: VID_QUALITY,
 };
 
-function Camera({ recording, filterName }) {
+function Camera({ setFile, filterName }) {
+  const [recording, setRecording] = useState(false);
+
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const text = useText(recording);
@@ -73,10 +109,35 @@ function Camera({ recording, filterName }) {
     return () => clearInterval(timer);
   }, [webcamRef, canvasRef, filterName, text])
 
+  const startRecording = useCallback(() => {
+    recorder.createStream(canvasRef.current);
+    recorder.start();
+  }, [canvasRef]);
+
+  const stopRecording = useCallback(() => {
+    if(setFile){
+      recorder.stop();
+      const file = recorder.save();
+      const url = window.URL.createObjectURL(file);
+
+      setFile(url);
+    }
+  }, [setFile]);
+
   return (
     <WebcamHolder>
       <Webcam videoConstraints={videoConstraints} height={0} ref={webcamRef} />
       <canvas ref={canvasRef} />
+      <PlayButton onClick={() => {
+          if(recording)
+            stopRecording();
+          else
+            startRecording();
+
+          setRecording(!recording);
+        }} recording={recording}>
+        <img src={recording ? stop : play} />
+      </PlayButton>
     </WebcamHolder>
   );
 }

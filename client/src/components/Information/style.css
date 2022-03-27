@@ -1,13 +1,10 @@
-body {
-    margin: 100px;
-  }
-  
   .wrapper {
     display: grid;
     grid-template-columns: 150px 150px 150px;
     grid-gap: 25px;
     background-color: #DEC9FF;
     color: #444;
+    margin-bottom: 40px;
   }
   
   .box {
