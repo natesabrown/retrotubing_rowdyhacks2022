@@ -50,7 +50,7 @@ const PlayButton = styled.div`
   }
 `
 
-const VID_QUALITY = 20;
+const VID_QUALITY = 5;
 
 const videoConstraints = {
   width: VID_QUALITY,

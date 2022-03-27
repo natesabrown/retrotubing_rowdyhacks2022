@@ -5,7 +5,6 @@ import Navigation from './components/Navigation';
 import Screen from './components/Screen';
 import DownloadBar from './components/DownloadBar';
 import Information from './components/Information';
-import FilterSelect from './components/Screen/FilterSelect';
 
 import constants from './constants';
 

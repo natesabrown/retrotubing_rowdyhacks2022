@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
-import styled, { keyframes, css } from 'styled-components';
-
-import play from './play.png';
-import stop from './stop.png';
+import React from 'react';
+import styled from 'styled-components';
 
 import constants from '../../constants';
 import Camera from '../Camera';
