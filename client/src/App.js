@@ -40,9 +40,8 @@ function App() {
     <Navigation />
     <Container>
       <SubContainer>
-        <Screen />
-        <DownloadBar />
-        <Information />
+        <Screen filterName={filterName} />
+        <DownloadBar filterName={filterName} setFilterName={setFilterName} />
       </SubContainer>
     </Container>
     

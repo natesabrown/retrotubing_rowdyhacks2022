@@ -10,7 +10,7 @@ const Holder = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 3px;
 `;
 
 const DownloadButton = styled.div`
@@ -28,6 +28,12 @@ const DownloadButton = styled.div`
   
 `;
 
+const HelpText = styled.div`
+  color: ${constants.darkbackground};
+  font-size: 24px;
+  margin-top: 15px;
+`
+
 function DownloadBar({ filterName, setFilterName }) {
   return (
     <>
@@ -39,6 +45,7 @@ function DownloadBar({ filterName, setFilterName }) {
             marginTop: 30,
           }}
         ></div>
+        <HelpText>Select Filter:</HelpText>
       <Holder>
         <FilterSelect 
           filterName={filterName}
