@@ -1,9 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import constants from '../../constants';
 import down_arrow from "./down_arrow.png";
 import FilterSelect from '../Screen/FilterSelect';
+
+import earth from './earth.png';
+import moon from './moon.png';
+import rocket from './rocket.png';
+import comet from './comet.png';
+
+const Earth = styled.img`
+  position: absolute;
+  height: 210px;
+  width: 240px !important;
+  right: -300px;
+  bottom: 120px;
+
+  ${props => props.up && `
+    transform: translateY(-10px);
+  `}
+`
+
+const Moon = styled.img`
+  position: absolute;
+  height: 130px;
+  width: 14 !important;
+  left: -270px;
+  bottom: 250px;
+
+  ${props => props.up && `
+    transform: translateY(-10px);
+  `}
+`
+
+const Rocket = styled.img`
+  position: absolute;
+  height: 140px;
+  width: 160px;
+  right: -300px;
+  bottom: 350px;
+  transform: scaleX(-1);
+
+  ${props => !props.up && `
+    transform: scaleX(-1) translateY(-10px);
+  `}
+`
+
+const Comet = styled.img`
+  position: absolute;
+  height: 110px;
+  width: 130px;
+  left: -200px;
+  bottom: 80px;
+
+  transform: rotate(30deg);;
+
+  ${props => !props.up && `
+    transform: rotate(45deg) translateY(-10px);
+  `}
+`
 
 const Holder = styled.div`
   width: 515px;
@@ -11,6 +67,7 @@ const Holder = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 3px;
+  position: relative;
 `;
 
 const DownloadButton = styled.div`
@@ -25,6 +82,7 @@ const DownloadButton = styled.div`
     cursor: pointer;
   }
   transform: scale(0.9);
+  position: relative;
   
 `;
 
@@ -35,6 +93,16 @@ const HelpText = styled.div`
 `
 
 function DownloadBar({ filterName, setFilterName }) {
+  const [up, setUp] = useState(false);
+
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setUp(!up);
+    }, 500);
+    return () => clearInterval(timer);
+  }, [up]);
+
   return (
     <>
         <div
@@ -47,12 +115,16 @@ function DownloadBar({ filterName, setFilterName }) {
         ></div>
         <HelpText>Select Filter:</HelpText>
       <Holder>
+        <Moon src={moon} up={up} />
+        <Rocket src={comet} up={up} />
+        <Comet src={rocket} up={up} />
         <FilterSelect 
           filterName={filterName}
           setFilterName={setFilterName}
         />
         <DownloadButton>
           <img src={down_arrow} />
+          <Earth src={earth} up={up} />
         </DownloadButton>
       </Holder>
     </>

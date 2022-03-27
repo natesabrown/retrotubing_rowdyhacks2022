@@ -61,7 +61,7 @@ function Camera({ recording, filterName }) {
       
 
       var imageData = ctx.getImageData(x, y, w, h);
-      var newImgData = pixels.filterImgData(imageData, "neue");
+      var newImgData = pixels.filterImgData(imageData, filterName);
       ctx.putImageData(newImgData, x, y);
     }
   }
