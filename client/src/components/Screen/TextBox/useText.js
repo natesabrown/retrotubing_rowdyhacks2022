@@ -4,21 +4,18 @@ import RecordRTC from 'recordrtc';
 export default function useText(recording){
     const [socket, setSocket] = useState();
     const [recorder, setRecorder] = useState();
-    const [token, setToken] = useState();
     const [text, setText] = useState(['', '']);
 
     useEffect(() => {
         if(recording){
             (async () => {
-                let apiToken = token || await fetch('http://localhost:9000')
-                    .then(res => res.json())
-                    .then(token => {
-                        setToken(token);
-                        return token;
-                    });
+                const token = await fetch('http://localhost:9000')
+                    .then(res => res.json());
+
+                console.log(token);
 
                 // set up web socket with assembly ai for real time transcribing
-                const socket = new WebSocket(`wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000&token=${apiToken}`);
+                const socket = new WebSocket(`wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000&token=${token}`);
                 
                 console.log('session setting up');
                 // incoming messages from socket
@@ -78,11 +75,11 @@ export default function useText(recording){
                                     const reader = new FileReader();
                                     reader.onload = () => {
                                     const base64data = reader.result;
-                                    console.log(socket);
-                                    // audio data must be sent as a base64 encded string
-                                    if (socket) {
-                                        socket.send(JSON.stringify({ audio_data: base64data.split('base64,')[1] }));
-                                    }
+                                        console.log(socket);
+                                        // audio data must be sent as a base64 encded string
+                                        if (socket) {
+                                            socket.send(JSON.stringify({ audio_data: base64data.split('base64,')[1] }));
+                                        }
                                     };
                                     reader.readAsDataURL(blob);
                                 },
@@ -102,7 +99,7 @@ export default function useText(recording){
             console.log(socket);
             if(socket){
                 console.log('socket close');
-                // socket.send(JSON.stringify({terminate_sessin: true}));
+                socket.send(JSON.stringify({terminate_sessin: true}));
                 socket.close();
             }
             if(recorder){
